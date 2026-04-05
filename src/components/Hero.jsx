@@ -32,7 +32,7 @@ export default function Hero() {
                         color: 'white',
                         marginBottom: '1.5rem'
                     }}>
-                        Transformando la Gestión Financiera <span style={{ fontStyle: 'italic', color: '#60A5FA' }}>con Estrategia e IA</span>
+                        Más Ahorro, Más Rentabilidad <span style={{ fontStyle: 'italic', color: '#60A5FA' }}>para tu Empresa</span>
                     </h1>
 
                     <p style={{
@@ -85,7 +85,7 @@ export default function Hero() {
                     }}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1rem' }}>
                             <TrendingUp size={18} color="#60A5FA" />
-                            <span style={{ color: 'rgba(255,255,255,0.7)', fontSize: '0.9rem' }}>Revenue</span>
+                            <span style={{ color: 'rgba(255,255,255,0.7)', fontSize: '0.9rem' }}>AHORRADO</span>
                             <div style={{ marginLeft: 'auto', display: 'flex', gap: '4px' }}>
                                 <span style={{ width: '6px', height: '6px', background: '#60A5FA', borderRadius: '50%' }} />
                                 <span style={{ width: '6px', height: '6px', background: 'rgba(255,255,255,0.3)', borderRadius: '50%' }} />
@@ -93,8 +93,8 @@ export default function Hero() {
                         </div>
 
                         <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.75rem', marginBottom: '1rem' }}>
-                            <span style={{ fontSize: '2.75rem', fontWeight: 700, color: 'white' }}>$10,629</span>
-                            <span style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.85rem' }}>Last 30 days</span>
+                            <span style={{ fontSize: '2.75rem', fontWeight: 700, color: 'white' }}>30M+</span>
+                            <span style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.85rem' }}>USD</span>
                         </div>
 
                         <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
@@ -106,9 +106,9 @@ export default function Hero() {
                                 fontSize: '0.85rem',
                                 fontWeight: 600
                             }}>
-                                +26%
+                                ↑ Impacto real
                             </span>
-                            <span style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.85rem' }}>Since previous 30 days</span>
+                            <span style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.85rem' }}>para nuestros clientes</span>
                         </div>
                     </div>
                 </div>

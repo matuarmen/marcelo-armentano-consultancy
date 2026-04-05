@@ -3,11 +3,6 @@ import { BrainCircuit, Briefcase, BarChart, Target } from 'lucide-react';
 export default function Services() {
     const services = [
         {
-            icon: <BrainCircuit size={28} />,
-            title: "Inteligencia Artificial para Finanzas",
-            description: "Optimización de procesos y toma de decisiones mediante IA generativa.",
-        },
-        {
             icon: <Briefcase size={28} />,
             title: "CFO Part-Time",
             description: "Acompañamiento mensual estratégico con foco en métricas clave.",
@@ -21,6 +16,11 @@ export default function Services() {
             icon: <Target size={28} />,
             title: "Proyectos Especiales",
             description: "Tableros de control, presupuestos y evaluación de inversiones.",
+        },
+        {
+            icon: <BrainCircuit size={28} />,
+            title: "Inteligencia Artificial para Finanzas",
+            description: "Optimización de procesos y toma de decisiones mediante IA generativa.",
         },
     ];
 
