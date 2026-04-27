@@ -132,7 +132,7 @@ export default function Dashboard({ user, onLogout }) {
         </header>
 
         {/* Content */}
-        <div style={{ flex: 1, overflow: 'hidden', position: 'relative', display: 'flex', flexDirection: 'column' }}>
+        <div style={{ flex: 1, minHeight: 0, overflow: 'hidden', position: 'relative', display: 'flex', flexDirection: 'column' }}>
           {activeTab === 'l10'       && <div style={{ flex: 1, overflowY: 'auto' }}><L10Meeting /></div>}
           {activeTab === 'leads'     && <CRM user={user} />}
           {activeTab === 'templates' && <div style={{ flex: 1, overflowY: 'auto' }}><Templates user={user} /></div>}

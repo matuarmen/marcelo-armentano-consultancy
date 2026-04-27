@@ -269,11 +269,15 @@ export default function CRM({ user }) {
   const handleAddNote = async () => {
     if (!newNote.trim()) return;
     setAddingNote(true);
-    const noteData = { text: newNote.trim(), author: user?.email || 'anon', createdAt: serverTimestamp() };
+    const text = newNote.trim();
+    const noteData = { text, author: user?.email || 'anon', createdAt: serverTimestamp() };
     if (isSimulation) {
-      setLeadNotes(prev => [...prev, { id: Date.now().toString(), ...noteData, createdAt: { seconds: Date.now()/1000 } }]);
+      const simNote = { id: Date.now().toString(), ...noteData, createdAt: { seconds: Date.now()/1000 } };
+      setLeadNotes(prev => [...prev, simNote]);
+      setLeads(prev => prev.map(l => l.id === detailLead.id ? { ...l, lastNote: text } : l));
     } else {
       await addDoc(collection(db, 'leads', detailLead.id, 'notes'), noteData);
+      await updateDoc(doc(db, 'leads', detailLead.id), { lastNote: text });
     }
     setNewNote('');
     setAddingNote(false);
@@ -281,7 +285,7 @@ export default function CRM({ user }) {
   };
 
   return (
-    <div style={{ display:'flex', height:'100%', background:'#f1f5f9', overflow:'hidden' }}>
+    <div style={{ display:'flex', flex:1, minHeight:0, background:'#f1f5f9', overflow:'hidden' }}>
 
       {/* ── Main Panel ── */}
       <div style={{ flex:1, display:'flex', flexDirection:'column', overflow:'hidden', transition:'all 0.2s' }}>
@@ -375,8 +379,8 @@ export default function CRM({ user }) {
                     <StatusSelect lead={lead} onChange={handleStatusChange} />
                   </td>
                   <td style={{ ...td, color:'#94a3b8', fontSize:'0.8rem', maxWidth:'180px' }}>
-                    <span title={lead.notes} style={{ display:'block', overflow:'hidden', textOverflow:'ellipsis', whiteSpace:'nowrap' }}>
-                      {lead.notes||'—'}
+                    <span title={lead.lastNote || lead.notes} style={{ display:'block', overflow:'hidden', textOverflow:'ellipsis', whiteSpace:'nowrap' }}>
+                      {lead.lastNote || lead.notes || '—'}
                     </span>
                   </td>
                   <td style={{ ...td, whiteSpace:'nowrap' }} onClick={e => e.stopPropagation()}>
@@ -399,7 +403,7 @@ export default function CRM({ user }) {
       {detailLead && (
         <div style={{
           width:'400px', minWidth:'400px', background:'#fff', borderLeft:'1px solid #e2e8f0',
-          display:'flex', flexDirection:'column', overflow:'hidden',
+          display:'flex', flexDirection:'column', overflow:'hidden', minHeight:0,
           animation:'slideIn 0.18s ease-out',
         }}>
           <style>{`@keyframes slideIn{from{transform:translateX(40px);opacity:0}to{transform:translateX(0);opacity:1}}`}</style>
@@ -473,7 +477,7 @@ export default function CRM({ user }) {
           </div>
 
           {/* Properties */}
-          <div style={{ overflow:'auto', padding:'1rem 1.5rem', borderBottom:'1px solid #f1f5f9' }}>
+          <div style={{ overflowY:'auto', padding:'1rem 1.5rem', borderBottom:'1px solid #f1f5f9', flexShrink:0, maxHeight:'220px' }}>
             <p style={{ fontSize:'0.7rem', fontWeight:600, color:'#94a3b8', textTransform:'uppercase', letterSpacing:'0.05em', marginBottom:'0.75rem' }}>Propiedades</p>
             {[
               { label:'Empresa',     value: detailLead.company },
@@ -493,7 +497,7 @@ export default function CRM({ user }) {
           </div>
 
           {/* Comments */}
-          <div style={{ flex:1, display:'flex', flexDirection:'column', overflow:'hidden' }}>
+          <div style={{ flex:1, minHeight:0, display:'flex', flexDirection:'column', overflow:'hidden' }}>
             <div style={{ padding:'0.875rem 1.5rem 0.5rem', borderBottom:'1px solid #f8fafc' }}>
               <p style={{ fontSize:'0.7rem', fontWeight:600, color:'#94a3b8', textTransform:'uppercase', letterSpacing:'0.05em', margin:0 }}>
                 Notas {leadNotes.length > 0 && <span style={{ color:'#cbd5e1', fontWeight:400 }}>({leadNotes.length})</span>}
@@ -501,7 +505,7 @@ export default function CRM({ user }) {
             </div>
 
             {/* Notes list */}
-            <div style={{ flex:1, overflow:'auto', padding:'0.75rem 1.5rem', display:'flex', flexDirection:'column', gap:'0.6rem' }}>
+            <div style={{ flex:1, minHeight:0, overflow:'auto', padding:'0.75rem 1.5rem', display:'flex', flexDirection:'column', gap:'0.6rem' }}>
               {leadNotes.length === 0 && (
                 <p style={{ color:'#cbd5e1', fontSize:'0.82rem', textAlign:'center', margin:'1rem 0' }}>Sin notas aún. Agregá la primera.</p>
               )}
